@@ -3,412 +3,456 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Portal Escolar</title>
+<title>Portal Escolar - Salta</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#0f172a;
-color:white;
+/* --- ESTILOS GLOBALES (CALCADOS DE LAS FOTOS) --- */
+:root {
+  --color-fondo-oscuro: #14161a; /* Fondo muy oscuro de la página */
+  --color-fondo-tarjeta: #1c2025; /* Fondo de tarjetas y header */
+  --color-borde-oscuro: #2c3138; /* Borde sutil de tarjetas y elementos */
+  --color-input: #262a30; /* Fondo de selects y acordeones */
+  --color-texto-blanco: #ffffff;
+  --color-texto-gris: #abb1b9; /* Gris para etiquetas como 'Familiar: ', 'Sección: ', etc. */
+  --color-celeste-portal: #3fa9f5; /* El celeste brillante para iconos y texto 'Inicio' */
 }
 
-.header{
-background:#111827;
-padding:15px;
-font-size:22px;
-font-weight:bold;
-text-align:center;
-position: relative;
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--color-fondo-oscuro);
+  color: var(--color-texto-blanco);
+  font-size: 14px;
 }
 
-.btn-volver {
-position: absolute;
-left: 15px;
-top: 50%;
-transform: translateY(-50%);
-background: #334155;
-color: white;
-border: none;
-padding: 6px 12px;
-border-radius: 6px;
-font-size: 14px;
-cursor: pointer;
+/* --- BARRA DE NAVEGACIÓN SUPERIOR --- */
+.navbar-portal {
+  background-color: var(--color-fondo-tarjeta);
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-borde-oscuro);
 }
 
-.login{
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
+.logo-portal {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-celeste-portal);
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
 }
 
-.card{
-background:#1e293b;
-padding:25px;
-border-radius:15px;
-width:90%;
-max-width:400px;
+.navbar-user-icon {
+  font-size: 18px;
+  color: var(--color-celeste-portal);
 }
 
-input{
-width:100%;
-padding:12px;
-margin:8px 0;
-border:none;
-border-radius:8px;
-box-sizing: border-box;
+/* --- CONTAINER PRINCIPAL --- */
+.container {
+  padding: 16px;
 }
 
-button.btn-login{
-width:100%;
-padding:12px;
-background:#2563eb;
-color:white;
-border:none;
-border-radius:8px;
-margin-top:10px;
-cursor: pointer;
+/* --- ENCABEZADOS --- */
+h1.section-title {
+  font-size: 18px;
+  margin: 0 0 10px 0;
 }
 
-#inicio, #ficha-alumno {
-display:none;
-padding:15px;
+.ciclo-select-container {
+  color: var(--color-celeste-portal);
+  margin-bottom: 20px;
 }
 
-.alumno{
-background:white;
-color:black;
-border-radius:12px;
-padding:15px;
-margin-bottom:12px;
-cursor: pointer;
-transition: transform 0.2s;
+.ciclo-select-container select {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  -webkit-appearance: none;
+  cursor: pointer;
 }
 
-.alumno:hover {
-transform: scale(1.02);
+/* --- TARJETAS DE ALUMNOS --- */
+.card-alumno {
+  background-color: var(--color-fondo-tarjeta);
+  border: 1px solid var(--color-borde-oscuro);
+  border-radius: 8px;
+  margin-bottom: 15px;
+  padding: 16px;
+  cursor: pointer;
+  position: relative;
 }
 
-.alumno h3{
-margin:0 0 10px 0;
-color: #1e293b;
+.card-alumno-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-texto-blanco);
+  margin-bottom: 12px;
 }
 
-.info{
-font-size:14px;
-color:#444;
-line-height: 1.4;
+.user-icon-card {
+  width: 24px;
+  height: 24px;
+  background-color: #2c3138;
+  color: var(--color-celeste-portal);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
 }
 
-select{
-width:100%;
-padding:10px;
-border-radius:8px;
-margin:10px 0 20px 0;
-background: #1e293b;
-color: white;
-border: 1px solid #334155;
+.card-alumno-name {
+  font-size: 15px;
+  font-weight: bold;
 }
 
-/* Estilos de la Ficha del Alumno */
-.nombre-alumno-titulo {
-text-align: center;
-margin: 20px 0 10px 0;
-font-size: 20px;
+.card-alumno-arrow {
+  position: absolute;
+  right: 16px;
+  color: var(--color-celeste-portal);
 }
 
-.tabs {
-display: flex;
-gap: 10px;
-margin-bottom: 20px;
+.card-alumno-details p {
+  margin: 6px 0;
+  font-size: 13px;
+}
+
+.card-alumno-details p strong {
+  color: var(--color-texto-blanco);
+}
+
+.card-alumno-details p span {
+  color: var(--color-texto-gris);
+}
+
+/* --- FICHA DEL ALUMNO --- */
+.back-btn {
+  color: var(--color-celeste-portal);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 15px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+h2.nombre-alumno-title {
+  font-size: 17px;
+  font-weight: bold;
+  margin: 0 0 15px 0;
+}
+
+/* Selector de Sección Calcado */
+.section-accordion {
+  background-color: #262a30;
+  color: var(--color-texto-gris);
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.section-accordion::after {
+  content: '\f078'; /* Flecha de FontAwesome */
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  position: absolute;
+  right: 16px;
+  color: var(--color-texto-gris);
+}
+
+.section-accordion-val {
+  color: var(--color-texto-blanco);
+  font-size: 15px;
+  margin-top: 4px;
+}
+
+/* Pestañas Calcadas */
+.tabs-container {
+  display: flex;
+  border-bottom: 2px solid #2a2e33;
+  margin-bottom: 20px;
 }
 
 .tab {
-flex: 1;
-padding: 10px;
-text-align: center;
-background: #1e293b;
-border-radius: 8px;
-cursor: pointer;
-font-weight: bold;
-border: 1px solid #334155;
+  flex: 1;
+  text-align: center;
+  padding: 12px;
+  color: var(--color-texto-blanco);
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
 }
 
 .tab.active {
-background: #2563eb;
-border-color: #2563eb;
+  border-bottom: 2px solid var(--color-celeste-portal);
 }
 
-.tab-content {
-display: none;
-background: #1e293b;
-padding: 15px;
-border-radius: 12px;
+.panel-content {
+  display: none;
 }
 
-.tab-content.active {
-display: block;
+.panel-content.active {
+  display: block;
 }
 
-/* Tablas de Notas y Faltas */
-table {
-width: 100%;
-border-collapse: collapse;
-margin-top: 10px;
+/* Botón Descargar Boletín Calcado */
+.btn-boletin-download {
+  color: var(--color-celeste-portal);
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
 }
 
-th, td {
-padding: 10px;
-text-align: left;
-border-bottom: 1px solid #334155;
+/* Acordeones de Materias / Inasistencias Totales Calcados */
+.materia-accordion {
+  background-color: var(--color-fondo-tarjeta);
+  border: 1px solid var(--color-borde-oscuro);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  padding: 16px;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: bold;
+  position: relative;
 }
 
-th {
-color: #94a3b8;
-font-size: 14px;
+.materia-accordion::after {
+  content: '\f078';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  position: absolute;
+  right: 16px;
+  color: var(--color-celeste-portal);
 }
 
-.nota-aprobada {
-color: #4ade80;
-font-weight: bold;
+/* Panel de Inasistencias Totales */
+.asistencia-header {
+  background-color: var(--color-fondo-oscuro);
+  color: var(--color-texto-blanco);
+  padding: 10px 16px;
+  font-weight: bold;
+  font-size: 15px;
+  margin-bottom: 15px;
 }
 
-.btn-boletin {
-display: block;
-width: 100%;
-padding: 12px;
-background: #059669;
-color: white;
-border: none;
-border-radius: 8px;
-margin-top: 20px;
-font-weight: bold;
-text-align: center;
-cursor: pointer;
+/* Acordeón Inasistencias con Contador Calcado */
+.asistencia-accordion {
+  background-color: var(--color-fondo-tarjeta);
+  border: 1px solid var(--color-borde-oscuro);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  padding: 16px;
+  font-size: 14px;
+  font-weight: bold;
+  position: relative;
+}
+
+.asistencia-accordion::after {
+  content: '\f078';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  position: absolute;
+  right: 16px;
+  color: var(--color-celeste-portal);
+}
+
+.asistencia-accordion-val {
+  position: absolute;
+  right: 40px;
+  color: var(--color-texto-blanco);
+  font-weight: normal;
 }
 </style>
 </head>
-
 <body>
 
-<!-- PANTALLA DE LOGIN -->
-<div id="login" class="login">
-<div class="card">
-<h2>Portal Escolar</h2>
-<input id="usuario" placeholder="Usuario">
-<input id="clave" type="password" placeholder="Contraseña">
-<button class="btn-login" onclick="ingresar()">Ingresar</button>
-</div>
-</div>
-
-<!-- PANTALLA PRINCIPAL (LISTA DE ESTUDIANTES) -->
-<div id="inicio">
-<div class="header">Estudiantes a tu cargo</div>
-<select>
-<option>Ciclo Lectivo 2026</option>
-</select>
-
-<!-- Alumno 1 -->
-<div class="alumno" onclick="verAlumno('benjamin')">
-<h3>Benjamín Nicolás Rodríguez Francia</h3>
-<div class="info">
-Familiar: Padre<br>
-Sección: 4° 2°<br>
-Nivel: Secundario<br>
-Institución: Juana Manuela Gorriti
-</div>
+<div class="navbar-portal">
+  <div class="logo-portal">
+    <i class="fa-solid fa-graduation-cap"></i> Portal Escolar
+  </div>
+  <div class="navbar-user-icon">
+    <i class="fa-solid fa-user"></i>
+  </div>
 </div>
 
-<!-- Alumno 2 -->
-<div class="alumno" onclick="verAlumno('franco')">
-<h3>Franco Gastón Rodríguez Francia</h3>
-<div class="info">
-Familiar: Padre<br>
-Sección: 1° M<br>
-Nivel: Secundario<br>
-Institución: Juana Manuela Gorriti
-</div>
+<div id="pantalla-inicio" class="container">
+  <h1 class="section-title">Estudiantes a tu cargo</h1>
+  <div class="ciclo-select-container">
+    <select>
+      <option>Ciclo Lectivo 2026</option>
+    </select>
+    <i class="fa-solid fa-chevron-down" style="font-size: 12px; margin-left: -5px;"></i>
+  </div>
+
+  <div class="card-alumno" onclick="verFicha('benjamin')">
+    <div class="card-alumno-header">
+      <div class="user-icon-card"><i class="fa-solid fa-user"></i></div>
+      <div class="card-alumno-name">Benjamin Nicolas Rodriguez Francia</div>
+      <i class="fa-solid fa-chevron-right card-alumno-arrow"></i>
+    </div>
+    <div class="card-alumno-details">
+      <p><span>Familiar: </span> <strong>Padre</strong></p>
+      <p><span>Sección: </span> <strong>2ª M</strong></p>
+      <p><span>Nivel: </span> <strong>Secundario - Común</strong></p>
+      <p><span>Institución: </span> <strong>Colegio Secundario Juana Manuela Gorriti Ex N° 47</strong></p>
+      <p><span>Localidad: </span> <strong>Salta</strong></p>
+    </div>
+  </div>
+
+  <div class="card-alumno" onclick="verFicha('franco')">
+    <div class="card-alumno-header">
+      <div class="user-icon-card"><i class="fa-solid fa-user"></i></div>
+      <div class="card-alumno-name">Franco Gaston Rodriguez Francia</div>
+      <i class="fa-solid fa-chevron-right card-alumno-arrow"></i>
+    </div>
+    <div class="card-alumno-details">
+      <p><span>Familiar: </span> <strong>Padre</strong></p>
+      <p><span>Sección: </span> <strong>1ª M</strong></p>
+      <p><span>Nivel: </span> <strong>Secundario - Común</strong></p>
+      <p><span>Institución: </span> <strong>Colegio Secundario Juana Manuela Gorriti Ex N° 47</strong></p>
+      <p><span>Localidad: </span> <strong>Salta</strong></p>
+    </div>
+  </div>
+
+  <div class="card-alumno" onclick="verFicha('bautista')">
+    <div class="card-alumno-header">
+      <div class="user-icon-card"><i class="fa-solid fa-user"></i></div>
+      <div class="card-alumno-name">Francia Bautista Gael Rodriguez</div>
+      <i class="fa-solid fa-chevron-right card-alumno-arrow"></i>
+    </div>
+    <div class="card-alumno-details">
+      <p><span>Familiar: </span> <strong>Padre</strong></p>
+      <p><span>Sección: </span> <strong>A</strong></p>
+      <p><span>Nivel: </span> <strong>Primario - Común</strong></p>
+      <p><span>Institución: </span> <strong>Alba Coronel De Pereyra Rozas</strong></p>
+      <p><span>Localidad: </span> <strong>Salta</strong></p>
+    </div>
+  </div>
 </div>
 
-<!-- Alumno 3 -->
-<div class="alumno" onclick="verAlumno('bautista')">
-<h3>Francia Bautista Gael Rodríguez</h3>
-<div class="info">
-Familiar: Padre<br>
-Nivel: Primario<br>
-Institución: Juana Manuela Gorriti
-</div>
-</div>
-</div>
+<div id="pantalla-ficha" class="container" style="display: none;">
+  <a href="#" class="back-btn" onclick="volverInicio()">
+    <i class="fa-solid fa-chevron-left"></i> Inicio
+  </a>
 
-<!-- PANTALLA DETALLE DE ALUMNO -->
-<div id="ficha-alumno">
-<div class="header">
-<button class="btn-volver" onclick="volverAlInicio()">← Volver</button>
-Portal Escolar
-</div>
+  <h2 id="alumno-titulo-ficha" class="nombre-alumno-title">Benjamin Nicolas Rodriguez Francia</h2>
 
-<h2 id="nombre-alumno-pantalla" class="nombre-alumno-titulo">Nombre Alumno</h2>
+  <div class="section-accordion">
+    Seleccionar Sección<br>
+    <div id="alumno-seccion-ficha" class="section-accordion-val">2ª M</div>
+  </div>
 
-<!-- Pestañas -->
-<div class="tabs">
-<div id="tab-notas" class="tab active" onclick="cambiarTab('notas')">Notas</div>
-<div id="tab-inasistencias" class="tab" onclick="cambiarTab('inasistencias')">Inasistencias</div>
-</div>
+  <div class="tabs-container">
+    <div id="tab-faltas" class="tab" onclick="activarTab('faltas')">Inasistencias</div>
+    <div id="tab-notas" class="tab active" onclick="activarTab('notas')">Notas</div>
+  </div>
 
-<!-- Contenido Notas -->
-<div id="contenido-notas" class="tab-content active">
-<table>
-<thead>
-<tr>
-<th>Materia</th>
-<th>Trim. 1</th>
-<th>Trim. 2</th>
-<th>Trim. 3</th>
-</tr>
-</thead>
-<tbody id="tabla-notas-cuerpo">
-<!-- Se carga dinámicamente con JS -->
-</tbody>
-</table>
-<button class="btn-boletin" onclick="alert('Descargando Boletín Digital...')">Descargar Boletín PDF</button>
-</div>
+  <div id="panel-notas" class="panel-content active">
+    <button class="btn-boletin-download" onclick="alert('Generando archivo PDF firmado digitalmente...')">
+      <i class="fa-solid fa-download"></i> Descargar boletín
+    </button>
+    <div id="materias-notas-container">
+      </div>
+  </div>
 
-<!-- Contenido Inasistencias -->
-<div id="contenido-inasistencias" class="tab-content">
-<p style="font-size: 18px; margin-bottom: 5px;">Total de Inasistencias: <strong id="total-faltas" style="color: #ef4444;">0</strong></p>
-<table>
-<thead>
-<tr>
-<th>Fecha</th>
-<th>Motivo</th>
-<th>Valor</th>
-</tr>
-</thead>
-<tbody id="tabla-faltas-cuerpo">
-<!-- Se carga dinámicamente con JS -->
-</tbody>
-</table>
-</div>
+  <div id="panel-faltas" class="panel-content">
+    <div class="asistencia-header" id="faltas-totales-header">12 inasistencias registradas</div>
+    <div id="meses-faltas-container">
+      </div>
+  </div>
 </div>
 
 <script>
-// Base de datos simulada de los alumnos
-const datosAlumnos = {
-benjamin: {
-nombre: "Benjamín Nicolás Rodríguez Francia",
-notas: [
-{ materia: "Matemática", t1: "8", t2: "-", t3: "-" },
-{ materia: "Lengua y Literatura", t1: "9", t2: "-", t3: "-" },
-{ materia: "Geografía", t1: "8", t2: "-", t3: "-" },
-{ materia: "Filosofía", t1: "7", t2: "-", t3: "-" },
-{ materia: "Inglés", t1: "9", t2: "-", t3: "-" }
-],
-faltas: [
-{ fecha: "14/04/2026", motivo: "Injustificada", valor: "1" },
-{ fecha: "05/05/2026", motivo: "Justificada", valor: "0.5" }
-],
-totalFaltas: "1.5"
-},
-franco: {
-nombre: "Franco Gastón Rodríguez Francia",
-notas: [
-{ materia: "Matemática", t1: "7", t2: "-", t3: "-" },
-{ materia: "Lengua", t1: "8", t2: "-", t3: "-" },
-{ materia: "Biología", t1: "6", t2: "-", t3: "-" },
-{ materia: "Geografía", t1: "7", t2: "-", t3: "-" }
-],
-faltas: [
-{ fecha: "22/04/2026", motivo: "Injustificada", valor: "1" }
-],
-totalFaltas: "1"
-},
-bautista: {
-nombre: "Francia Bautista Gael Rodríguez",
-notas: [
-{ materia: "Lengua", t1: "9", t2: "-", t3: "-" },
-{ materia: "Matemática", t1: "8", t2: "-", t3: "-" },
-{ materia: "Ciencias Naturales", t1: "9", t2: "-", t3: "-" },
-{ materia: "Ciencias Sociales", t1: "8", t2: "-", t3: "-" }
-],
-faltas: [],
-totalFaltas: "0"
-}
+// Base de datos CALCADA de las fotos de la familia Francia
+const db = {
+  benjamin: {
+    nombre: "Benjamin Nicolas Rodriguez Francia",
+    seccion: "2ª M",
+    totalFaltas: 12,
+    notas: ["CIENCIAS POLITICAS", "EDUCACIÓN FÍSICA", "FILOSOFÍA", "FÍSICA", "GEOGRAFIA AMBIENTAL", "GEOGRAFÍA", "HISTORIA", "HISTORIA DEL PENSAMIENTO SOCIAL", "LENGUA EXTRANJERA", "LENGUA Y LITERATURA", "MATEMÁTICA"],
+    faltas: { Enero: null, Febrero: null, Marzo: 3, Abril: 6, Mayo: 2, Junio: 1, Julio: null, Agosto: null, Septiembre: null, Octubre: null, Noviembre: null, Diciembre: null }
+  },
+  franco: {
+    nombre: "Franco Gaston Rodriguez Francia",
+    seccion: "1ª M",
+    totalFaltas: 10,
+    notas: ["ÁREA CIENCIAS NATURALES", "ÁREA CIENCIAS SOCIALES", "ÁREA EDUCACIÓN ARTÍSTICA", "ÁREA EDUCACIÓN FÍSICA", "ÁREA EDUCACIÓN RELIGIOSA", "ÁREA EDUCACIÓN TECNOLÓGICA", "ÁREA FORMACIÓN ÉTICA Y CIUDADANA", "ÁREA LENGUA", "ÁREA LENGUA EXTRANJERA", "ÁREA MATEMÁTICA"],
+    faltas: { Enero: null, Febrero: null, Marzo: 1, Abril: 1, Mayo: 2, Junio: 2, Julio: null, Agosto: null, Septiembre: null, Octubre: null, Noviembre: null, Diciembre: null }
+  },
+  bautista: {
+    nombre: "Francia Bautista Gael Rodriguez",
+    seccion: "A (Primario)",
+    totalFaltas: 15,
+    notas: ["CIENCIAS NATURALES", "CIENCIAS SOCIALES", "EDUCACIÓN ARTÍSTICA", "EDUCACIÓN FÍSICA", "LENGUA", "LENGUA EXTRANJERA", "MATEMÁTICA", "TECNOLOGÍA"],
+    faltas: { Enero: null, Febrero: null, Marzo: 4, Abril: 1, Mayo: 0, Junio: 10, Julio: null, Agosto: null, Septiembre: null, Octubre: null, Noviembre: null, Diciembre: null }
+  }
 };
 
-function ingresar(){
-let u=document.getElementById("usuario").value;
-let c=document.getElementById("clave").value;
+function verFicha(id) {
+  const data = db[id];
+  document.getElementById("pantalla-inicio").style.display = "none";
+  document.getElementById("pantalla-ficha").style.display = "block";
 
-if(u==="295864576" && c==="Pr295864576"){
-document.getElementById("login").style.display="none";
-document.getElementById("inicio").style.display="block";
-}else{
-alert("Usuario o contraseña incorrectos");
-}
-}
+  document.getElementById("alumno-titulo-ficha").innerText = data.nombre;
+  document.getElementById("alumno-seccion-ficha").innerText = data.seccion;
 
-function verAlumno(idAlumno) {
-const alumno = datosAlumnos[idAlumno];
-if(!alumno) return;
+  // Cargar Notas Dinámicas
+  let notasHtml = "";
+  data.notas.forEach(materia => {
+    notasHtml += `<div class="materia-accordion">${materia}</div>`;
+  });
+  document.getElementById("materias-notas-container").innerHTML = notasHtml;
 
-// Ocultar inicio, mostrar ficha
-document.getElementById("inicio").style.display = "none";
-document.getElementById("ficha-alumno").style.display = "block";
+  // Cargar Inasistencias Dinámicas
+  document.getElementById("faltas-totales-header").innerText = `${data.totalFaltas} inasistencias registradas`;
+  let faltasHtml = "";
+  const meses = Object.keys(data.faltas);
+  meses.forEach(mes => {
+    const cant = data.faltas[mes];
+    if (cant === null) {
+      faltasHtml += `<div class="asistencia-accordion" style="text-transform: capitalize;">${mes}</div>`;
+    } else {
+      faltasHtml += `<div class="asistencia-accordion" style="text-transform: capitalize;">${mes} <span class="asistencia-accordion-val">${cant} inasistencias</span></div>`;
+    }
+  });
+  document.getElementById("meses-faltas-container").innerHTML = faltasHtml;
 
-// Poner nombre
-document.getElementById("nombre-alumno-pantalla").innerText = alumno.nombre;
-
-// Cargar Notas
-let htmlNotas = "";
-alumno.notas.forEach(n => {
-htmlNotas += `<tr>
-<td>${n.materia}</td>
-<td class="nota-aprobada">${n.t1}</td>
-<td>${n.t2}</td>
-<td>${n.t3}</td>
-</tr>`;
-});
-document.getElementById("tabla-notas-cuerpo").innerHTML = htmlNotas;
-
-// Cargar Faltas
-document.getElementById("total-faltas").innerText = alumno.totalFaltas;
-let htmlFaltas = "";
-if(alumno.faltas.length === 0) {
-htmlFaltas = `<tr><td colspan="3" style="text-align:center; color:#94a3b8;">Sin inasistencias registradas</td></tr>`;
-} else {
-alumno.faltas.forEach(f => {
-htmlFaltas += `<tr>
-<td>${f.fecha}</td>
-<td>${f.motivo}</td>
-<td>${f.valor}</td>
-</tr>`;
-});
-}
-document.getElementById("tabla-faltas-cuerpo").innerHTML = htmlFaltas;
-
-// Resetear a la pestaña de notas por defecto
-cambiarTab('notas');
+  activarTab('notas'); // Empieza en la pestaña notas
 }
 
-function volverAlInicio() {
-document.getElementById("ficha-alumno").style.display = "none";
-document.getElementById("inicio").style.display = "block";
+function volverInicio() {
+  document.getElementById("pantalla-ficha").style.display = "none";
+  document.getElementById("pantalla-inicio").style.display = "block";
 }
 
-function cambiarTab(tipo) {
-if(tipo === 'notas') {
-document.getElementById("tab-notas").classList.add("active");
-document.getElementById("tab-inasistencias").classList.remove("active");
-document.getElementById("contenido-notas").classList.add("active");
-document.getElementById("contenido-inasistencias").classList.remove("active");
-} else {
-document.getElementById("tab-inasistencias").classList.add("active");
-document.getElementById("tab-notas").classList.remove("active");
-document.getElementById("contenido-inasistencias").classList.add("active");
-document.getElementById("contenido-notas").classList.remove("active");
-}
+function activarTab(tipo) {
+  if (tipo === 'faltas') {
+    document.getElementById("tab-faltas").classList.add("active");
+    document.getElementById("tab-notas").classList.remove("active");
+    document.getElementById("panel-faltas").classList.add("active");
+    document.getElementById("panel-notas").classList.remove("active");
+  } else {
+    document.getElementById("tab-notas").classList.add("active");
+    document.getElementById("tab-faltas").classList.remove("active");
+    document.getElementById("panel-notas").classList.add("active");
+    document.getElementById("panel-faltas").classList.remove("active");
+  }
 }
 </script>
 
