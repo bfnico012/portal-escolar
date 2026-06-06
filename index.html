@@ -19,6 +19,21 @@ padding:15px;
 font-size:22px;
 font-weight:bold;
 text-align:center;
+position: relative;
+}
+
+.btn-volver {
+position: absolute;
+left: 15px;
+top: 50%;
+transform: translateY(-50%);
+background: #334155;
+color: white;
+border: none;
+padding: 6px 12px;
+border-radius: 6px;
+font-size: 14px;
+cursor: pointer;
 }
 
 .login{
@@ -42,9 +57,10 @@ padding:12px;
 margin:8px 0;
 border:none;
 border-radius:8px;
+box-sizing: border-box;
 }
 
-button{
+button.btn-login{
 width:100%;
 padding:12px;
 background:#2563eb;
@@ -52,9 +68,10 @@ color:white;
 border:none;
 border-radius:8px;
 margin-top:10px;
+cursor: pointer;
 }
 
-#inicio{
+#inicio, #ficha-alumno {
 display:none;
 padding:15px;
 }
@@ -65,15 +82,23 @@ color:black;
 border-radius:12px;
 padding:15px;
 margin-bottom:12px;
+cursor: pointer;
+transition: transform 0.2s;
+}
+
+.alumno:hover {
+transform: scale(1.02);
 }
 
 .alumno h3{
 margin:0 0 10px 0;
+color: #1e293b;
 }
 
 .info{
 font-size:14px;
 color:#444;
+line-height: 1.4;
 }
 
 select{
@@ -81,44 +106,122 @@ width:100%;
 padding:10px;
 border-radius:8px;
 margin:10px 0 20px 0;
+background: #1e293b;
+color: white;
+border: 1px solid #334155;
+}
+
+/* Estilos de la Ficha del Alumno */
+.nombre-alumno-titulo {
+text-align: center;
+margin: 20px 0 10px 0;
+font-size: 20px;
+}
+
+.tabs {
+display: flex;
+gap: 10px;
+margin-bottom: 20px;
+}
+
+.tab {
+flex: 1;
+padding: 10px;
+text-align: center;
+background: #1e293b;
+border-radius: 8px;
+cursor: pointer;
+font-weight: bold;
+border: 1px solid #334155;
+}
+
+.tab.active {
+background: #2563eb;
+border-color: #2563eb;
+}
+
+.tab-content {
+display: none;
+background: #1e293b;
+padding: 15px;
+border-radius: 12px;
+}
+
+.tab-content.active {
+display: block;
+}
+
+/* Tablas de Notas y Faltas */
+table {
+width: 100%;
+border-collapse: collapse;
+margin-top: 10px;
+}
+
+th, td {
+padding: 10px;
+text-align: left;
+border-bottom: 1px solid #334155;
+}
+
+th {
+color: #94a3b8;
+font-size: 14px;
+}
+
+.nota-aprobada {
+color: #4ade80;
+font-weight: bold;
+}
+
+.btn-boletin {
+display: block;
+width: 100%;
+padding: 12px;
+background: #059669;
+color: white;
+border: none;
+border-radius: 8px;
+margin-top: 20px;
+font-weight: bold;
+text-align: center;
+cursor: pointer;
 }
 </style>
 </head>
 
 <body>
 
+<!-- PANTALLA DE LOGIN -->
 <div id="login" class="login">
 <div class="card">
 <h2>Portal Escolar</h2>
-
 <input id="usuario" placeholder="Usuario">
 <input id="clave" type="password" placeholder="Contraseña">
-
-<button onclick="ingresar()">Ingresar</button>
+<button class="btn-login" onclick="ingresar()">Ingresar</button>
 </div>
 </div>
 
+<!-- PANTALLA PRINCIPAL (LISTA DE ESTUDIANTES) -->
 <div id="inicio">
-
-<div class="header">
-Estudiantes a tu cargo
-</div>
-
+<div class="header">Estudiantes a tu cargo</div>
 <select>
 <option>Ciclo Lectivo 2026</option>
 </select>
 
-<div class="alumno">
+<!-- Alumno 1 -->
+<div class="alumno" onclick="verAlumno('benjamin')">
 <h3>Benjamín Nicolás Rodríguez Francia</h3>
 <div class="info">
 Familiar: Padre<br>
-Sección: 2° M<br>
+Sección: 4° 2°<br>
 Nivel: Secundario<br>
 Institución: Juana Manuela Gorriti
 </div>
 </div>
 
-<div class="alumno">
+<!-- Alumno 2 -->
+<div class="alumno" onclick="verAlumno('franco')">
 <h3>Franco Gastón Rodríguez Francia</h3>
 <div class="info">
 Familiar: Padre<br>
@@ -128,7 +231,8 @@ Institución: Juana Manuela Gorriti
 </div>
 </div>
 
-<div class="alumno">
+<!-- Alumno 3 -->
+<div class="alumno" onclick="verAlumno('bautista')">
 <h3>Francia Bautista Gael Rodríguez</h3>
 <div class="info">
 Familiar: Padre<br>
@@ -136,25 +240,175 @@ Nivel: Primario<br>
 Institución: Juana Manuela Gorriti
 </div>
 </div>
+</div>
 
+<!-- PANTALLA DETALLE DE ALUMNO -->
+<div id="ficha-alumno">
+<div class="header">
+<button class="btn-volver" onclick="volverAlInicio()">← Volver</button>
+Portal Escolar
+</div>
+
+<h2 id="nombre-alumno-pantalla" class="nombre-alumno-titulo">Nombre Alumno</h2>
+
+<!-- Pestañas -->
+<div class="tabs">
+<div id="tab-notas" class="tab active" onclick="cambiarTab('notas')">Notas</div>
+<div id="tab-inasistencias" class="tab" onclick="cambiarTab('inasistencias')">Inasistencias</div>
+</div>
+
+<!-- Contenido Notas -->
+<div id="contenido-notas" class="tab-content active">
+<table>
+<thead>
+<tr>
+<th>Materia</th>
+<th>Trim. 1</th>
+<th>Trim. 2</th>
+<th>Trim. 3</th>
+</tr>
+</thead>
+<tbody id="tabla-notas-cuerpo">
+<!-- Se carga dinámicamente con JS -->
+</tbody>
+</table>
+<button class="btn-boletin" onclick="alert('Descargando Boletín Digital...')">Descargar Boletín PDF</button>
+</div>
+
+<!-- Contenido Inasistencias -->
+<div id="contenido-inasistencias" class="tab-content">
+<p style="font-size: 18px; margin-bottom: 5px;">Total de Inasistencias: <strong id="total-faltas" style="color: #ef4444;">0</strong></p>
+<table>
+<thead>
+<tr>
+<th>Fecha</th>
+<th>Motivo</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody id="tabla-faltas-cuerpo">
+<!-- Se carga dinámicamente con JS -->
+</tbody>
+</table>
+</div>
 </div>
 
 <script>
-function ingresar(){
+// Base de datos simulada de los alumnos
+const datosAlumnos = {
+benjamin: {
+nombre: "Benjamín Nicolás Rodríguez Francia",
+notas: [
+{ materia: "Matemática", t1: "8", t2: "-", t3: "-" },
+{ materia: "Lengua y Literatura", t1: "9", t2: "-", t3: "-" },
+{ materia: "Geografía", t1: "8", t2: "-", t3: "-" },
+{ materia: "Filosofía", t1: "7", t2: "-", t3: "-" },
+{ materia: "Inglés", t1: "9", t2: "-", t3: "-" }
+],
+faltas: [
+{ fecha: "14/04/2026", motivo: "Injustificada", valor: "1" },
+{ fecha: "05/05/2026", motivo: "Justificada", valor: "0.5" }
+],
+totalFaltas: "1.5"
+},
+franco: {
+nombre: "Franco Gastón Rodríguez Francia",
+notas: [
+{ materia: "Matemática", t1: "7", t2: "-", t3: "-" },
+{ materia: "Lengua", t1: "8", t2: "-", t3: "-" },
+{ materia: "Biología", t1: "6", t2: "-", t3: "-" },
+{ materia: "Geografía", t1: "7", t2: "-", t3: "-" }
+],
+faltas: [
+{ fecha: "22/04/2026", motivo: "Injustificada", valor: "1" }
+],
+totalFaltas: "1"
+},
+bautista: {
+nombre: "Francia Bautista Gael Rodríguez",
+notas: [
+{ materia: "Lengua", t1: "9", t2: "-", t3: "-" },
+{ materia: "Matemática", t1: "8", t2: "-", t3: "-" },
+{ materia: "Ciencias Naturales", t1: "9", t2: "-", t3: "-" },
+{ materia: "Ciencias Sociales", t1: "8", t2: "-", t3: "-" }
+],
+faltas: [],
+totalFaltas: "0"
+}
+};
 
+function ingresar(){
 let u=document.getElementById("usuario").value;
 let c=document.getElementById("clave").value;
 
-if(
-u==="295864576" &&
-c==="Pr295864576"
-){
+if(u==="295864576" && c==="Pr295864576"){
 document.getElementById("login").style.display="none";
 document.getElementById("inicio").style.display="block";
 }else{
 alert("Usuario o contraseña incorrectos");
 }
+}
 
+function verAlumno(idAlumno) {
+const alumno = datosAlumnos[idAlumno];
+if(!alumno) return;
+
+// Ocultar inicio, mostrar ficha
+document.getElementById("inicio").style.display = "none";
+document.getElementById("ficha-alumno").style.display = "block";
+
+// Poner nombre
+document.getElementById("nombre-alumno-pantalla").innerText = alumno.nombre;
+
+// Cargar Notas
+let htmlNotas = "";
+alumno.notas.forEach(n => {
+htmlNotas += `<tr>
+<td>${n.materia}</td>
+<td class="nota-aprobada">${n.t1}</td>
+<td>${n.t2}</td>
+<td>${n.t3}</td>
+</tr>`;
+});
+document.getElementById("tabla-notas-cuerpo").innerHTML = htmlNotas;
+
+// Cargar Faltas
+document.getElementById("total-faltas").innerText = alumno.totalFaltas;
+let htmlFaltas = "";
+if(alumno.faltas.length === 0) {
+htmlFaltas = `<tr><td colspan="3" style="text-align:center; color:#94a3b8;">Sin inasistencias registradas</td></tr>`;
+} else {
+alumno.faltas.forEach(f => {
+htmlFaltas += `<tr>
+<td>${f.fecha}</td>
+<td>${f.motivo}</td>
+<td>${f.valor}</td>
+</tr>`;
+});
+}
+document.getElementById("tabla-faltas-cuerpo").innerHTML = htmlFaltas;
+
+// Resetear a la pestaña de notas por defecto
+cambiarTab('notas');
+}
+
+function volverAlInicio() {
+document.getElementById("ficha-alumno").style.display = "none";
+document.getElementById("inicio").style.display = "block";
+}
+
+function cambiarTab(tipo) {
+if(tipo === 'notas') {
+document.getElementById("tab-notas").classList.add("active");
+document.getElementById("tab-inasistencias").classList.remove("active");
+document.getElementById("contenido-notas").classList.add("active");
+document.getElementById("contenido-inasistencias").classList.remove("active");
+} else {
+document.getElementById("tab-inasistencias").classList.add("active");
+document.getElementById("tab-notas").classList.remove("active");
+document.getElementById("contenido-inasistencias").classList.add("active");
+document.getElementById("contenido-notas").classList.remove("active");
+}
 }
 </script>
 
