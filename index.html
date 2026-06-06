@@ -150,7 +150,7 @@ h1.section-title {
 
 .user-icon-card {
   width: 24px;
-  height: 24px;
+height: 24px;
   background-color: #2c3138;
   color: var(--color-celeste-portal);
   border-radius: 50%;
@@ -462,7 +462,7 @@ h2.nombre-alumno-title {
   </div>
 
   <div id="panel-notas" class="panel-content active">
-    <button class="btn-boletin-download" onclick="alert('Descargando archivo PDF...')">
+    <button class="btn-boletin-download" onclick="descargarBoletinActual()">
       <i class="fa-solid fa-download"></i> Descargar boletín
     </button>
     <div id="materias-notas-container">
@@ -477,12 +477,16 @@ h2.nombre-alumno-title {
 </div>
 
 <script>
+// ID del alumno activo en la ficha para saber cuál descargar
+let alumnoSeleccionadoActual = "";
+
 // Base de datos exacta y corregida
 const db = {
   benjamin: {
     nombre: "Benjamin Nicolas Rodriguez Francia",
     seccion: "2ª M",
     totalFaltas: 12,
+    archivo: "boletin_benjamin.pdf", // Nombre del archivo a descargar
     notas: [
       { m: "CIENCIAS POLITICAS", n1: "8", n2: "7", n3: "9" },
       { m: "EDUCACIÓN FÍSICA", n1: "9", n2: "9", n3: "10" },
@@ -496,12 +500,13 @@ const db = {
       { m: "LENGUA Y LITERATURA", n1: "8", n2: "7", n3: "8" },
       { m: "MATEMÁTICA", n1: "7", n2: "6", n3: "8" }
     ],
-    faltas: { Enero: null, Febrero: null, Marzo: 3, Abril: 6, Mayo: 2, Junio: 1, Julio: null, Agosto: null, Septiembre: null, Octubre: null, Noviembre: null, Diciembre: null }
+    faltas: { Enero: null, Febrero: null, Marzo: 3, Abril: 6, Mayo: 2, Junio: 1, Julio: null, Agosto: null }
   },
   franco: {
     nombre: "Franco Gaston Rodriguez Francia",
     seccion: "1ª M",
     totalFaltas: 4,
+    archivo: "boletin_franco.pdf", // Nombre del archivo a descargar
     notas: [
       { m: "BIOLOGÍA", n1: "7", n2: "8", n3: "7" },
       { m: "EDUCACIÓN ARTÍSTICA", n1: "9", n2: "8", n3: "9" },
@@ -515,12 +520,13 @@ const db = {
       { m: "MATEMÁTICA", n1: "6", n2: "7", n3: "8" },
       { m: "QUÍMICA", n1: "7", n2: "6", n3: "7" }
     ],
-    faltas: { Enero: null, Febrero: null, Marzo: 1, Abril: 1, Mayo: 2, Junio: 0, Julio: null, Agosto: null }
+    faltas: { Enero: null, Febrero: null, Marzo: 1, Abril: 1, Mayo: 2, Junio: 0 }
   },
   bautista: {
     nombre: "Francia Bautista Gael Rodriguez",
     seccion: "A",
     totalFaltas: 16,
+    archivo: "boletin_bautista.pdf", // Nombre del archivo a descargar
     notas: [
       { m: "ÁREA CIENCIAS NATURALES", n1: "9", n2: "9", n3: "8" },
       { m: "ÁREA CIENCIAS SOCIALES", n1: "8", n2: "8", n3: "9" },
@@ -533,7 +539,7 @@ const db = {
       { m: "ÁREA LENGUA EXTRANJERA", n1: "9", n2: "9", n3: "9" },
       { m: "ÁREA MATEMÁTICA", n1: "8", n2: "7", n3: "8" }
     ],
-    faltas: { Enero: null, Febrero: null, Marzo: 3, Abril: 6, Mayo: 2, Junio: 1, Julio: null }
+    faltas: { Enero: null, Febrero: null, Marzo: 3, Abril: 6, Mayo: 2, Junio: 1 }
   }
 };
 
@@ -552,6 +558,7 @@ function intentarLogin() {
 
 // Cargar Ficha del Alumno
 function verFicha(id) {
+  alumnoSeleccionadoActual = id; // Guardamos quién está abierto
   const data = db[id];
   document.getElementById("pantalla-inicio").style.display = "none";
   document.getElementById("pantalla-ficha").style.display = "block";
@@ -606,7 +613,15 @@ function verFicha(id) {
   activarTab('notas');
 }
 
-// Función para abrir y cerrar las materias
+// Función para descargar la libreta correcta
+function descargarBoletinActual() {
+  if (alumnoSeleccionadoActual !== "") {
+    const nombreArchivo = db[alumnoSeleccionadoActual].archivo;
+    // Esto fuerza al navegador a buscar e intentar descargar el archivo desde el repositorio
+    window.open(nombreArchivo, '_blank');
+  }
+}
+
 function toggleMateria(id) {
   const el = document.getElementById(id);
   el.classList.toggle("open");
@@ -615,6 +630,7 @@ function toggleMateria(id) {
 function volverInicio() {
   document.getElementById("pantalla-ficha").style.display = "none";
   document.getElementById("pantalla-inicio").style.display = "block";
+  alumnoSeleccionadoActual = "";
 }
 
 function activarTab(tipo) {
@@ -633,4 +649,5 @@ function activarTab(tipo) {
 </script>
 
 </body>
-</html>
+  </html>
+    
