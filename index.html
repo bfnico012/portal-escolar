@@ -8,20 +8,20 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-/* --- ESTILOS GLOBALES (CALCADOS DE LAS FOTOS) --- */
+/* --- ESTILOS GLOBALES --- */
 :root {
-  --color-fondo-oscuro: #14161a; /* Fondo muy oscuro de la página */
-  --color-fondo-tarjeta: #1c2025; /* Fondo de tarjetas y header */
-  --color-borde-oscuro: #2c3138; /* Borde sutil de tarjetas y elementos */
-  --color-input: #262a30; /* Fondo de selects y acordeones */
+  --color-fondo-oscuro: #14161a; 
+  --color-fondo-tarjeta: #1c2025; 
+  --color-borde-oscuro: #2c3138; 
+  --color-input: #262a30; 
   --color-texto-blanco: #ffffff;
-  --color-texto-gris: #abb1b9; /* Gris para etiquetas como 'Familiar: ', 'Sección: ', etc. */
-  --color-celeste-portal: #3fa9f5; /* El celeste brillante para iconos y texto 'Inicio' */
+  --color-texto-gris: #abb1b9; 
+  --color-celeste-portal: #3fa9f5; 
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
   background-color: var(--color-fondo-oscuro);
   color: var(--color-texto-blanco);
   font-size: 14px;
@@ -57,7 +57,70 @@ body {
   padding: 16px;
 }
 
-/* --- ENCABEZADOS --- */
+/* --- PANTALLA LOGIN --- */
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px);
+}
+
+.login-box {
+  background-color: var(--color-fondo-tarjeta);
+  border: 1px solid var(--color-borde-oscuro);
+  border-radius: 8px;
+  padding: 24px;
+  width: 100%;
+  max-width: 340px;
+}
+
+.login-box h2 {
+  font-size: 18px;
+  margin: 0 0 8px 0;
+  text-align: center;
+}
+
+.login-box p {
+  color: var(--color-texto-gris);
+  font-size: 12px;
+  text-align: center;
+  margin: 0 0 20px 0;
+}
+
+.input-field-group {
+  margin-bottom: 16px;
+}
+
+.input-field-group input {
+  width: 100%;
+  background-color: var(--color-input);
+  border: 1px solid var(--color-borde-oscuro);
+  border-radius: 6px;
+  padding: 12px;
+  box-sizing: border-box;
+  color: white;
+  font-size: 14px;
+}
+
+.input-field-group input:focus {
+  outline: none;
+  border-color: var(--color-celeste-portal);
+}
+
+.btn-portal-login {
+  width: 100%;
+  background-color: var(--color-celeste-portal);
+  color: #000000;
+  border: none;
+  border-radius: 6px;
+  padding: 12px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* --- PANTALLA PRINCIPAL: ALUMNOS --- */
 h1.section-title {
   font-size: 18px;
   margin: 0 0 10px 0;
@@ -68,17 +131,6 @@ h1.section-title {
   margin-bottom: 20px;
 }
 
-.ciclo-select-container select {
-  background: none;
-  border: none;
-  color: inherit;
-  font-size: 14px;
-  font-weight: 500;
-  -webkit-appearance: none;
-  cursor: pointer;
-}
-
-/* --- TARJETAS DE ALUMNOS --- */
 .card-alumno {
   background-color: var(--color-fondo-tarjeta);
   border: 1px solid var(--color-borde-oscuro);
@@ -93,7 +145,6 @@ h1.section-title {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: var(--color-texto-blanco);
   margin-bottom: 12px;
 }
 
@@ -150,7 +201,6 @@ h2.nombre-alumno-title {
   margin: 0 0 15px 0;
 }
 
-/* Selector de Sección Calcado */
 .section-accordion {
   background-color: #262a30;
   color: var(--color-texto-gris);
@@ -162,7 +212,7 @@ h2.nombre-alumno-title {
 }
 
 .section-accordion::after {
-  content: '\f078'; /* Flecha de FontAwesome */
+  content: '\f078'; 
   font-family: 'Font Awesome 6 Free';
   font-weight: 900;
   position: absolute;
@@ -176,7 +226,6 @@ h2.nombre-alumno-title {
   margin-top: 4px;
 }
 
-/* Pestañas Calcadas */
 .tabs-container {
   display: flex;
   border-bottom: 2px solid #2a2e33;
@@ -190,7 +239,6 @@ h2.nombre-alumno-title {
   color: var(--color-texto-blanco);
   font-weight: bold;
   cursor: pointer;
-  font-size: 14px;
 }
 
 .tab.active {
@@ -205,7 +253,6 @@ h2.nombre-alumno-title {
   display: block;
 }
 
-/* Botón Descargar Boletín Calcado */
 .btn-boletin-download {
   color: var(--color-celeste-portal);
   background: none;
@@ -219,29 +266,68 @@ h2.nombre-alumno-title {
   margin-bottom: 20px;
 }
 
-/* Acordeones de Materias / Inasistencias Totales Calcados */
-.materia-accordion {
-  background-color: var(--color-fondo-tarjeta);
+/* Acordeón de Materias Dinámicas */
+.materia-item {
+  margin-bottom: 10px;
   border: 1px solid var(--color-borde-oscuro);
   border-radius: 8px;
-  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.materia-header {
+  background-color: var(--color-fondo-tarjeta);
   padding: 16px;
   font-size: 14px;
   text-transform: uppercase;
   font-weight: bold;
+  cursor: pointer;
   position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.materia-accordion::after {
-  content: '\f078';
-  font-family: 'Font Awesome 6 Free';
-  font-weight: 900;
-  position: absolute;
-  right: 16px;
+.materia-header i {
   color: var(--color-celeste-portal);
+  transition: transform 0.2s;
 }
 
-/* Panel de Inasistencias Totales */
+.materia-item.open .materia-header i {
+  transform: rotate(180deg);
+}
+
+/* Panel Desplegable de Notas */
+.materia-body {
+  background-color: #181b1f;
+  display: none;
+  padding: 12px 16px;
+  border-top: 1px solid var(--color-borde-oscuro);
+}
+
+.materia-item.open .materia-body {
+  display: block;
+}
+
+.tabla-notas {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.tabla-notas th {
+  text-align: left;
+  color: var(--color-texto-gris);
+  font-weight: normal;
+  padding: 6px 0;
+}
+
+.tabla-notas td {
+  padding: 8px 0;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+/* Asistencias */
 .asistencia-header {
   background-color: var(--color-fondo-oscuro);
   color: var(--color-texto-blanco);
@@ -251,7 +337,6 @@ h2.nombre-alumno-title {
   margin-bottom: 15px;
 }
 
-/* Acordeón Inasistencias con Contador Calcado */
 .asistencia-accordion {
   background-color: var(--color-fondo-tarjeta);
   border: 1px solid var(--color-borde-oscuro);
@@ -291,13 +376,26 @@ h2.nombre-alumno-title {
   </div>
 </div>
 
-<div id="pantalla-inicio" class="container">
+<div id="pantalla-login" class="container login-wrapper">
+  <div class="login-box">
+    <h2>Ingreso al Sistema</h2>
+    <p>Portal de Autogestión Educativa</p>
+    
+    <div class="input-field-group">
+      <input id="user-input" type="text" placeholder="Usuario (DNI)">
+    </div>
+    <div class="input-field-group">
+      <input id="pass-input" type="password" placeholder="Contraseña">
+    </div>
+    
+    <button class="btn-portal-login" onclick="intentarLogin()">INGRESAR</button>
+  </div>
+</div>
+
+<div id="pantalla-inicio" class="container" style="display: none;">
   <h1 class="section-title">Estudiantes a tu cargo</h1>
   <div class="ciclo-select-container">
-    <select>
-      <option>Ciclo Lectivo 2026</option>
-    </select>
-    <i class="fa-solid fa-chevron-down" style="font-size: 12px; margin-left: -5px;"></i>
+    <span>Ciclo Lectivo 2026</span> <i class="fa-solid fa-chevron-down" style="font-size: 11px;"></i>
   </div>
 
   <div class="card-alumno" onclick="verFicha('benjamin')">
@@ -364,7 +462,7 @@ h2.nombre-alumno-title {
   </div>
 
   <div id="panel-notas" class="panel-content active">
-    <button class="btn-boletin-download" onclick="alert('Generando archivo PDF firmado digitalmente...')">
+    <button class="btn-boletin-download" onclick="alert('Descargando archivo PDF...')">
       <i class="fa-solid fa-download"></i> Descargar boletín
     </button>
     <div id="materias-notas-container">
@@ -372,38 +470,87 @@ h2.nombre-alumno-title {
   </div>
 
   <div id="panel-faltas" class="panel-content">
-    <div class="asistencia-header" id="faltas-totales-header">12 inasistencias registradas</div>
+    <div class="asistencia-header" id="faltas-totales-header">0 inasistencias registradas</div>
     <div id="meses-faltas-container">
       </div>
   </div>
 </div>
 
 <script>
-// Base de datos CALCADA de las fotos de la familia Francia
+// Base de datos exacta y corregida
 const db = {
   benjamin: {
     nombre: "Benjamin Nicolas Rodriguez Francia",
     seccion: "2ª M",
     totalFaltas: 12,
-    notas: ["CIENCIAS POLITICAS", "EDUCACIÓN FÍSICA", "FILOSOFÍA", "FÍSICA", "GEOGRAFIA AMBIENTAL", "GEOGRAFÍA", "HISTORIA", "HISTORIA DEL PENSAMIENTO SOCIAL", "LENGUA EXTRANJERA", "LENGUA Y LITERATURA", "MATEMÁTICA"],
+    notas: [
+      { m: "CIENCIAS POLITICAS", n1: "8", n2: "7", n3: "9" },
+      { m: "EDUCACIÓN FÍSICA", n1: "9", n2: "9", n3: "10" },
+      { m: "FILOSOFÍA", n1: "7", n2: "8", n3: "8" },
+      { m: "FÍSICA", n1: "6", n2: "7", n3: "7" },
+      { m: "GEOGRAFIA AMBIENTAL", n1: "8", n2: "8", n3: "9" },
+      { m: "GEOGRAFÍA", n1: "9", n2: "8", n3: "8" },
+      { m: "HISTORIA", n1: "7", n2: "7", n3: "8" },
+      { m: "HISTORIA DEL PENSAMIENTO SOCIAL", n1: "8", n2: "9", n3: "9" },
+      { m: "LENGUA EXTRANJERA", n1: "9", n2: "9", n3: "10" },
+      { m: "LENGUA Y LITERATURA", n1: "8", n2: "7", n3: "8" },
+      { m: "MATEMÁTICA", n1: "7", n2: "6", n3: "8" }
+    ],
     faltas: { Enero: null, Febrero: null, Marzo: 3, Abril: 6, Mayo: 2, Junio: 1, Julio: null, Agosto: null, Septiembre: null, Octubre: null, Noviembre: null, Diciembre: null }
   },
   franco: {
     nombre: "Franco Gaston Rodriguez Francia",
     seccion: "1ª M",
-    totalFaltas: 10,
-    notas: ["ÁREA CIENCIAS NATURALES", "ÁREA CIENCIAS SOCIALES", "ÁREA EDUCACIÓN ARTÍSTICA", "ÁREA EDUCACIÓN FÍSICA", "ÁREA EDUCACIÓN RELIGIOSA", "ÁREA EDUCACIÓN TECNOLÓGICA", "ÁREA FORMACIÓN ÉTICA Y CIUDADANA", "ÁREA LENGUA", "ÁREA LENGUA EXTRANJERA", "ÁREA MATEMÁTICA"],
-    faltas: { Enero: null, Febrero: null, Marzo: 1, Abril: 1, Mayo: 2, Junio: 2, Julio: null, Agosto: null, Septiembre: null, Octubre: null, Noviembre: null, Diciembre: null }
+    totalFaltas: 4,
+    notas: [
+      { m: "BIOLOGÍA", n1: "7", n2: "8", n3: "7" },
+      { m: "EDUCACIÓN ARTÍSTICA", n1: "9", n2: "8", n3: "9" },
+      { m: "EDUCACIÓN FÍSICA", n1: "10", n2: "9", n3: "10" },
+      { m: "EDUCACIÓN TECNOLÓGICA", n1: "8", n2: "7", n3: "8" },
+      { m: "FORMACIÓN ÉTICA Y CIUDADANA", n1: "8", n2: "8", n3: "9" },
+      { m: "GEOGRAFÍA", n1: "7", n2: "7", n3: "8" },
+      { m: "HISTORIA", n1: "6", n2: "8", n3: "7" },
+      { m: "LENGUA EXTRANJERA", n1: "8", n2: "9", n3: "9" },
+      { m: "LENGUA Y LITERATURA", n1: "7", n2: "7", n3: "8" },
+      { m: "MATEMÁTICA", n1: "6", n2: "7", n3: "8" },
+      { m: "QUÍMICA", n1: "7", n2: "6", n3: "7" }
+    ],
+    faltas: { Enero: null, Febrero: null, Marzo: 1, Abril: 1, Mayo: 2, Junio: 0, Julio: null, Agosto: null }
   },
   bautista: {
     nombre: "Francia Bautista Gael Rodriguez",
-    seccion: "A (Primario)",
-    totalFaltas: 15,
-    notas: ["CIENCIAS NATURALES", "CIENCIAS SOCIALES", "EDUCACIÓN ARTÍSTICA", "EDUCACIÓN FÍSICA", "LENGUA", "LENGUA EXTRANJERA", "MATEMÁTICA", "TECNOLOGÍA"],
-    faltas: { Enero: null, Febrero: null, Marzo: 4, Abril: 1, Mayo: 0, Junio: 10, Julio: null, Agosto: null, Septiembre: null, Octubre: null, Noviembre: null, Diciembre: null }
+    seccion: "A",
+    totalFaltas: 16,
+    notas: [
+      { m: "ÁREA CIENCIAS NATURALES", n1: "9", n2: "9", n3: "8" },
+      { m: "ÁREA CIENCIAS SOCIALES", n1: "8", n2: "8", n3: "9" },
+      { m: "ÁREA EDUCACIÓN ARTÍSTICA", n1: "9", n2: "10", n3: "9" },
+      { m: "ÁREA EDUCACIÓN FÍSICA", n1: "10", n2: "10", n3: "10" },
+      { m: "ÁREA EDUCACIÓN RELIGIOSA", n1: "9", n2: "9", n3: "9" },
+      { m: "ÁREA EDUCACIÓN TECNOLÓGICA", n1: "8", n2: "8", n3: "9" },
+      { m: "ÁREA FORMACIÓN ÉTICA Y CIUDADANA", n1: "8", n2: "9", n3: "8" },
+      { m: "ÁREA LENGUA", n1: "9", n2: "8", n3: "9" },
+      { m: "ÁREA LENGUA EXTRANJERA", n1: "9", n2: "9", n3: "9" },
+      { m: "ÁREA MATEMÁTICA", n1: "8", n2: "7", n3: "8" }
+    ],
+    faltas: { Enero: null, Febrero: null, Marzo: 3, Abril: 6, Mayo: 2, Junio: 1, Julio: null }
   }
 };
 
+// Autenticación de Login
+function intentarLogin() {
+  const user = document.getElementById("user-input").value;
+  const pass = document.getElementById("pass-input").value;
+
+  if (user === "295864576" && pass === "Pr295864576") {
+    document.getElementById("pantalla-login").style.display = "none";
+    document.getElementById("pantalla-inicio").style.display = "block";
+  } else {
+    alert("Usuario o contraseña incorrectos.");
+  }
+}
+
+// Cargar Ficha del Alumno
 function verFicha(id) {
   const data = db[id];
   document.getElementById("pantalla-inicio").style.display = "none";
@@ -412,18 +559,41 @@ function verFicha(id) {
   document.getElementById("alumno-titulo-ficha").innerText = data.nombre;
   document.getElementById("alumno-seccion-ficha").innerText = data.seccion;
 
-  // Cargar Notas Dinámicas
+  // Renderizar Notas Desplegables
   let notasHtml = "";
-  data.notas.forEach(materia => {
-    notasHtml += `<div class="materia-accordion">${materia}</div>`;
+  data.notas.forEach((item, index) => {
+    notasHtml += `
+      <div class="materia-item" id="materia-${index}">
+        <div class="materia-header" onclick="toggleMateria('materia-${index}')">
+          <span>${item.m}</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="materia-body">
+          <table class="tabla-notas">
+            <thead>
+              <tr>
+                <th>1° Trim.</th>
+                <th>2° Trim.</th>
+                <th>3° Trim.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>${item.n1}</td>
+                <td>${item.n2}</td>
+                <td>${item.n3}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>`;
   });
   document.getElementById("materias-notas-container").innerHTML = notasHtml;
 
-  // Cargar Inasistencias Dinámicas
+  // Renderizar Inasistencias
   document.getElementById("faltas-totales-header").innerText = `${data.totalFaltas} inasistencias registradas`;
   let faltasHtml = "";
-  const meses = Object.keys(data.faltas);
-  meses.forEach(mes => {
+  Object.keys(data.faltas).forEach(mes => {
     const cant = data.faltas[mes];
     if (cant === null) {
       faltasHtml += `<div class="asistencia-accordion" style="text-transform: capitalize;">${mes}</div>`;
@@ -433,7 +603,13 @@ function verFicha(id) {
   });
   document.getElementById("meses-faltas-container").innerHTML = faltasHtml;
 
-  activarTab('notas'); // Empieza en la pestaña notas
+  activarTab('notas');
+}
+
+// Función para abrir y cerrar las materias
+function toggleMateria(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle("open");
 }
 
 function volverInicio() {
@@ -443,15 +619,15 @@ function volverInicio() {
 
 function activarTab(tipo) {
   if (tipo === 'faltas') {
-    document.getElementById("tab-faltas").classList.add("active");
-    document.getElementById("tab-notas").classList.remove("active");
-    document.getElementById("panel-faltas").classList.add("active");
-    document.getElementById("panel-notas").classList.remove("active");
+    document.getElementById("tab-faltas").className = "tab active";
+    document.getElementById("tab-notas").className = "tab";
+    document.getElementById("panel-faltas").className = "panel-content active";
+    document.getElementById("panel-notas").className = "panel-content";
   } else {
-    document.getElementById("tab-notas").classList.add("active");
-    document.getElementById("tab-faltas").classList.remove("active");
-    document.getElementById("panel-notas").classList.add("active");
-    document.getElementById("panel-faltas").classList.remove("active");
+    document.getElementById("tab-notas").className = "tab active";
+    document.getElementById("tab-faltas").className = "tab";
+    document.getElementById("panel-notas").className = "panel-content active";
+    document.getElementById("panel-faltas").className = "panel-content";
   }
 }
 </script>
