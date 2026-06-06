@@ -1,12 +1,186 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portal Escolar</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#111827;
+color:white;
+}
+
+.login{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.card{
+background:#1f2937;
+padding:30px;
+border-radius:15px;
+width:90%;
+max-width:400px;
+}
+
+h1{
+text-align:center;
+margin-bottom:20px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:8px 0;
+border:none;
+border-radius:8px;
+}
+
+button{
+width:100%;
+padding:12px;
+background:#2563eb;
+color:white;
+border:none;
+border-radius:8px;
+margin-top:10px;
+cursor:pointer;
+}
+
+#portal{
+display:none;
+padding:20px;
+}
+
+.alumno{
+background:#1f2937;
+padding:15px;
+margin-bottom:15px;
+border-radius:12px;
+cursor:pointer;
+}
+
+.perfil{
+display:none;
+background:#1f2937;
+padding:15px;
+border-radius:12px;
+margin-top:15px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:10px;
+}
+
+td,th{
+border:1px solid #374151;
+padding:8px;
+text-align:left;
+}
+</style>
 </head>
+
 <body>
-<h1>Portal Escolar J.M. Gorriti</h1>
-<p>Benjamín Rodríguez Francia</p>
-<p>Franco Rodríguez Francia</p>
-<p>Bautista Rodríguez</p>
+
+<div class="login" id="login">
+<div class="card">
+<h1>Portal Escolar</h1>
+
+<input id="cuil" placeholder="CUIL">
+<input id="pass" type="password" placeholder="Contraseña">
+
+<button onclick="ingresar()">Ingresar</button>
+</div>
+</div>
+
+<div id="portal">
+
+<h1>Colegio Juana Manuela Gorriti</h1>
+
+<div class="alumno" onclick="mostrar('benja')">
+👤 Benjamín Nicolás Rodríguez Francia
+</div>
+
+<div class="alumno" onclick="mostrar('franco')">
+👤 Franco Gastón Rodríguez Francia
+</div>
+
+<div class="alumno" onclick="mostrar('bauti')">
+👤 Francia Bautista Gael Rodríguez
+</div>
+
+<div class="perfil" id="benja">
+<h2>Benjamín</h2>
+<p>Inasistencias: 4</p>
+
+<table>
+<tr><th>Materia</th><th>Nota</th></tr>
+<tr><td>Lengua y Literatura</td><td>7</td></tr>
+<tr><td>Matemática</td><td>8</td></tr>
+<tr><td>Historia</td><td>6</td></tr>
+<tr><td>Geografía</td><td>7</td></tr>
+<tr><td>Física</td><td>8</td></tr>
+<tr><td>Educación Física</td><td>10</td></tr>
+</table>
+</div>
+
+<div class="perfil" id="franco">
+<h2>Franco</h2>
+<p>Inasistencias: 1</p>
+
+<table>
+<tr><th>Materia</th><th>Nota</th></tr>
+<tr><td>Lengua y Literatura</td><td>6</td></tr>
+<tr><td>Formación Ética y Ciudadana</td><td>9</td></tr>
+<tr><td>Historia</td><td>6</td></tr>
+<tr><td>Biología</td><td>7</td></tr>
+<tr><td>Química</td><td>7</td></tr>
+<tr><td>Matemática</td><td>-</td></tr>
+</table>
+</div>
+
+<div class="perfil" id="bauti">
+<h2>Bautista</h2>
+<p>Inasistencias: 12</p>
+<p>Notas aún no cargadas.</p>
+</div>
+
+</div>
+
+<script>
+function ingresar(){
+const cuil=document.getElementById("cuil").value;
+const pass=document.getElementById("pass").value;
+
+if(cuil && pass){
+document.getElementById("login").style.display="none";
+document.getElementById("portal").style.display="block";
+}else{
+alert("Ingrese CUIL y contraseña");
+}
+}
+
+function mostrar(id){
+
+document.querySelectorAll(".perfil").forEach(p=>{
+p.style.display="none";
+});
+
+document.getElementById(id).style.display="block";
+}
+</script>
+
 </body>
-</html>
+  </html>
